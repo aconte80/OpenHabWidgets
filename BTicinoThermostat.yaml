@@ -28,18 +28,19 @@ props:
       required: false
       type: TEXT
     - context: item
-      label: Current Humidity
-      name: humidity_item
-      required: false
-      type: TEXT
-    - context: item
-      description: on/off item
+      description: Function item
       label: Function (Heating/Cooling/Generic) control item
       name: function_item
       required: false
       type: TEXT
+    - context: item
+      description: Mode item
+      label: Mode (Off/Protection/Manual) control item
+      name: mode_item
+      required: false
+      type: TEXT
   parameterGroups: []
-timestamp: May 14, 2021, 7:01:37 PM
+timestamp: May 15, 2021, 12:12:38 AM
 component: f7-card
 config:
   style:
@@ -48,7 +49,7 @@ config:
     border-radius: var(--f7-card-expandable-border-radius)
     box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.1)
     background-color: "=props.bgcolor ? props.bgcolor : ''"
-    height: 120px
+    height: 150px
     margin-left: 5px
     margin-right: 5px
 slots:
@@ -97,29 +98,6 @@ slots:
       config:
         style:
           position: absolute
-          bottom: -40px
-          left: 12px
-          flex-direction: row
-          display: flex
-      slots:
-        default:
-          - component: f7-icon
-            config:
-              f7: drop
-              size: 18
-              visible: "=props.humidity_item ? true : false"
-          - component: Label
-            config:
-              visible: "=props.humidity_item ? true : false"
-              text: =items[props.humidity_item].displayState
-              style:
-                font-size: 12px
-                margin-left: 5px
-                margin-top: 0px
-    - component: f7-block
-      config:
-        style:
-          position: absolute
           bottom: -63px
           left: 12px
           flex-direction: row
@@ -129,13 +107,35 @@ slots:
           - component: f7-icon
             config:
               visible: "=props.function_item ? true : false"
-              f7: "=items[props.function_item].state == 'HEATING' ? 'flame_fill' : 'snow'"
-              color: "=Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0 ? 'red' : 'white'"
+              f7: "=items[props.function_item].state == 'HEATING' ? 'sun_max' : (items[props.function_item].state == 'COOLING' ? 'snow' : 'stop_fill')"
               size: 18
           - component: Label
             config:
               visible: "=props.function_item ? true : false"
               text: =items[props.function_item].state
+              style:
+                font-size: 12px
+                margin-left: 5px
+                margin-top: 0px
+    - component: f7-block
+      config:
+        style:
+          position: absolute
+          bottom: -90px
+          left: 12px
+          flex-direction: row
+          display: flex
+      slots:
+        default:
+          - component: f7-icon
+            config:
+              visible: "=props.mode_item ? true : false"
+              f7: "=items[props.mode_item].state == 'MANUAL' ? 'hand_raised' : (items[props.mode_item].state == 'PROTECTION' ? 'thermometer_snowflake' : 'power')"
+              size: 18
+          - component: Label
+            config:
+              visible: "=props.mode_item ? true : false"
+              text: =items[props.mode_item].state
               style:
                 font-size: 12px
                 margin-left: 5px
