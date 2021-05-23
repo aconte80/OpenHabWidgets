@@ -39,8 +39,14 @@ props:
       name: mode_item
       required: false
       type: TEXT
+    - context: item
+      description: Actuator item
+      label: Actuator item
+      name: actuator_item
+      required: false
+      type: TEXT
   parameterGroups: []
-timestamp: May 15, 2021, 12:12:38 AM
+timestamp: May 23, 2021, 10:12:38 AM
 component: f7-card
 config:
   style:
@@ -117,6 +123,21 @@ slots:
                 font-size: 12px
                 margin-left: 5px
                 margin-top: 0px
+    
+    - component: f7-icon
+      config:
+        style:
+          position: absolute
+          bottom: -80px
+          left: 94px
+          flex-direction: row
+          display: flex
+        visible: "=(props.function_item && items[props.actuator_item].state == 'ON') ? true : false"
+        f7: "=items[props.function_item].state == 'HEATING' ? 'flame' : 'snow' "
+        color: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue' "
+        size: 20
+
+
     - component: f7-block
       config:
         style:
