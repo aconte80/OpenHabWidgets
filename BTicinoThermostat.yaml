@@ -46,7 +46,7 @@ props:
       required: false
       type: TEXT
   parameterGroups: []
-timestamp: May 23, 2021, 10:12:38 AM
+timestamp: Oct 4, 2021, 6:27:43 PM
 component: f7-card
 config:
   style:
@@ -81,31 +81,35 @@ slots:
             config:
               text: "=props.title ? props.title : ''"
               style:
-                font-size: 12px
-                margin-top: 0px
+                font-size: 25px
+                margin-top: -11px
+                font-weight: 700
     - component: f7-block
       config:
         style:
+          width: 260px
           position: absolute
-          bottom: -20px
-          left: 16px
+          top: 40px
+          left: calc((100% - 260px) / 2)
           flex-direction: row
       slots:
         default:
           - component: Label
             config:
-              text: =items[props.temp_item].state
+              text: =items[props.temp_item].state         
+              #text: "=Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0])"
               style:
-                font-size: 22px
+                color: "=Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0 ? items[props.function_item].state == 'HEATING' ? 'red' : 'white' : items[props.function_item].state == 'HEATING' ? 'white' : 'blue'"
+                font-size: 60px
                 font-weight: 400
                 margin-left: 0px
                 margin-top: 0px
     - component: f7-block
-      config:
+      config:  
         style:
           position: absolute
-          bottom: -63px
-          left: 12px
+          bottom: -90px
+          left: 150px
           flex-direction: row
           display: flex
       slots:
@@ -114,6 +118,7 @@ slots:
             config:
               visible: "=props.function_item ? true : false"
               f7: "=items[props.function_item].state == 'HEATING' ? 'sun_max' : (items[props.function_item].state == 'COOLING' ? 'snow' : 'stop_fill')"
+              color: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue' "
               size: 18
           - component: Label
             config:
@@ -123,7 +128,6 @@ slots:
                 font-size: 12px
                 margin-left: 5px
                 margin-top: 0px
-    
     - component: f7-icon
       config:
         style:
@@ -136,8 +140,6 @@ slots:
         f7: "=items[props.function_item].state == 'HEATING' ? 'flame' : 'snow' "
         color: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue' "
         size: 20
-
-
     - component: f7-block
       config:
         style:
@@ -166,40 +168,40 @@ slots:
         visible: "=props.set_temp_item ? true : false"
         iconColor: red
         iconF7: arrow_up_circle
-        iconSize: 35
+        iconSize: 50
         action: command
         actionItem: =props.set_temp_item
         actionCommand: =Number(items[props.set_temp_item].state.split(' ')[0]) + 0.5
         style:
           position: absolute
-          top: 12px
-          right: 10px
-          height: 35px
+          top: 5px
+          right: 0px
+          height: 50px
           background: transparent
     - component: oh-button
       config:
         visible: "=props.set_temp_item ? true : false"
         iconColor: red
         iconF7: arrow_down_circle
-        iconSize: 35
+        iconSize: 50
         action: command
         actionItem: =props.set_temp_item
         actionCommand: =Number(items[props.set_temp_item].state.split(' ')[0]) - 0.5
         style:
           position: absolute
-          top: 74px
-          right: 10px
-          height: 35px
+          bottom: -115px
+          right: 0px
+          height: 50px
           background: transparent
     - component: Label
       config:
         visible: "=props.set_temp_item ? true : false"
         text: =items[props.set_temp_item].state
         style:
-          font-size: 12px
+          font-size: 25px
           position: absolute
-          right: 15px
-          top: 50px
+          right: 20px
+          top: 58px
     - component: f7-block
       config:
         style:
