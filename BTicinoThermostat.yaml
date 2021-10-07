@@ -46,7 +46,7 @@ props:
       required: false
       type: TEXT
   parameterGroups: []
-timestamp: Oct 4, 2021, 6:27:43 PM
+timestamp: Oct 5, 2021, 12:25:38 PM
 component: f7-card
 config:
   style:
@@ -96,8 +96,7 @@ slots:
         default:
           - component: Label
             config:
-              text: =items[props.temp_item].state         
-              #text: "=Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0])"
+              text: =items[props.temp_item].state
               style:
                 color: "=Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0 ? items[props.function_item].state == 'HEATING' ? 'red' : 'white' : items[props.function_item].state == 'HEATING' ? 'white' : 'blue'"
                 font-size: 60px
@@ -105,7 +104,7 @@ slots:
                 margin-left: 0px
                 margin-top: 0px
     - component: f7-block
-      config:  
+      config:
         style:
           position: absolute
           bottom: -90px
@@ -230,3 +229,16 @@ slots:
                 top: 0px
                 left: 0px
                 z-index: 1
+
+
+
+
+
+"=Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0 ? items[props.function_item].state == 'HEATING' ? 'red' : 'white' : items[props.function_item].state == 'HEATING' ? 'white' : 'blue'"
+
+
+
+"=items[props.function_item].state == 'HEATING' ? (Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0) : (Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) > 0)"
+
+
+
