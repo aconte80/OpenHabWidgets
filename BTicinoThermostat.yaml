@@ -7,7 +7,7 @@ props:
       name: title
       required: false
       type: TEXT
-    - description: Icon on top of the card (only f7 icons (without f7:))
+    - description: Icon on top of the card (only OH icons (without oh:))
       label: Icon
       name: icon
       required: false
@@ -40,13 +40,13 @@ props:
       required: false
       type: TEXT
     - context: item
-      description: Actuator item
-      label: Actuator item
-      name: actuator_item
+      description: Fan speed item
+      label: Fan speed (Auto, 1, 2, 3) item
+      name: fanspeed_item
       required: false
       type: TEXT
   parameterGroups: []
-timestamp: Oct 5, 2021, 12:25:38 PM
+timestamp: Oct 7, 2021, 9:46:30 AM
 component: f7-card
 config:
   style:
@@ -64,26 +64,35 @@ slots:
       config:
         style:
           position: absolute
-          top: -5px
+          top: -10px
           left: 16px
           flex-direction: row
           display: flex
       slots:
         default:
-          - component: f7-icon
+          - component: oh-icon
             config:
-              f7: =props.icon
-              size: 18
+              icon: =props.icon
+              width: 40
               style:
                 margin-right: 10px
+                margin-top: -8px
               visible: "=props.icon ? true : false"
           - component: Label
             config:
               text: "=props.title ? props.title : ''"
               style:
-                font-size: 25px
-                margin-top: -11px
-                font-weight: 700
+                font-size: 18px
+    - component: f7-icon
+      config:
+        visible: "=items[props.function_item].state == 'HEATING' ? (Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0) : (Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) > 0)"
+        f7: "=items[props.function_item].state == 'HEATING' ? 'flame' : 'snow' "
+        color: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue' "
+        size: 50
+        style:
+          position: absolute
+          top: 45px
+          left: 40px
     - component: f7-block
       config:
         style:
@@ -98,7 +107,7 @@ slots:
             config:
               text: =items[props.temp_item].state
               style:
-                color: "=Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0 ? items[props.function_item].state == 'HEATING' ? 'red' : 'white' : items[props.function_item].state == 'HEATING' ? 'white' : 'blue'"
+                color: white
                 font-size: 60px
                 font-weight: 400
                 margin-left: 0px
@@ -107,9 +116,8 @@ slots:
       config:
         style:
           position: absolute
-          bottom: -90px
-          left: 150px
-          flex-direction: row
+          bottom: -70px
+          left: 10px
           display: flex
       slots:
         default:
@@ -127,23 +135,76 @@ slots:
                 font-size: 12px
                 margin-left: 5px
                 margin-top: 0px
-    - component: f7-icon
+    - component: f7-block
       config:
+        visible: "=props.fanspeed_item ? true : false"
         style:
           position: absolute
-          bottom: -80px
-          left: 94px
+          bottom: -95px
+          right: 80px
           flex-direction: row
           display: flex
-        visible: "=(props.function_item && items[props.actuator_item].state == 'ON') ? true : false"
-        f7: "=items[props.function_item].state == 'HEATING' ? 'flame' : 'snow' "
-        color: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue' "
-        size: 20
+      slots:
+        default:
+          - component: f7-icon
+            config:
+              f7: chart_bar
+              size: 25
+              style:
+                top: 3px
+          - component: oh-button
+            config:
+              iconColor: white
+              text: A
+              style:
+                font-size: 20px
+                font-weight: "=items[props.fanspeed_item].state == 'AUTO' ? 700 : 300"
+                background: "=items[props.fanspeed_item].state == 'AUTO' ? items[props.function_item].state == 'HEATING' ? 'red' : 'blue' : 'transparent'"
+              textColor: white
+              action: command
+              actionItem: =props.fanspeed_item
+              actionCommand: AUTO
+          - component: oh-button
+            config:
+              iconColor: white
+              text: 1
+              style:
+                font-size: 20px
+                font-weight: "=items[props.fanspeed_item].state == 'SPEED_1' ? 700 : 300"
+                background: "=items[props.fanspeed_item].state == 'SPEED_1' ? items[props.function_item].state == 'HEATING' ? 'red' : 'blue' : 'transparent'"
+              textColor: white
+              action: command
+              actionItem: =props.fanspeed_item
+              actionCommand: SPEED_1
+          - component: oh-button
+            config:
+              iconColor: white
+              text: 2
+              style:
+                font-size: 20px
+                font-weight: "=items[props.fanspeed_item].state == 'SPEED_2' ? 700 : 300"
+                background: "=items[props.fanspeed_item].state == 'SPEED_2' ? items[props.function_item].state == 'HEATING' ? 'red' : 'blue' : 'transparent'"
+              textColor: white
+              action: command
+              actionItem: =props.fanspeed_item
+              actionCommand: SPEED_2
+          - component: oh-button
+            config:
+              iconColor: white
+              text: 3
+              style:
+                font-size: 20px
+                font-weight: "=items[props.fanspeed_item].state == 'SPEED_3' ? 700 : 300"
+                background: "=items[props.fanspeed_item].state == 'SPEED_3' ? items[props.function_item].state == 'HEATING' ? 'red' : 'blue' : 'transparent'"
+              textColor: white
+              action: command
+              actionItem: =props.fanspeed_item
+              actionCommand: SPEED_3
     - component: f7-block
       config:
         style:
           position: absolute
-          bottom: -90px
+          bottom: -95px
           left: 12px
           flex-direction: row
           display: flex
@@ -164,8 +225,23 @@ slots:
                 margin-top: 0px
     - component: oh-button
       config:
+        visible: "=props.mode_item ? true : false"
+        iconColor: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue'"
+        iconF7: xmark_circle_fill
+        iconSize: 50
+        action: command
+        actionItem: =props.mode_item
+        actionCommand: PROTECTION
+        style:
+          position: absolute
+          top: 5px
+          right: 50px
+          height: 50px
+          background: transparent
+    - component: oh-button
+      config:
         visible: "=props.set_temp_item ? true : false"
-        iconColor: red
+        iconColor: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue'"
         iconF7: arrow_up_circle
         iconSize: 50
         action: command
@@ -180,7 +256,7 @@ slots:
     - component: oh-button
       config:
         visible: "=props.set_temp_item ? true : false"
-        iconColor: red
+        iconColor: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue'"
         iconF7: arrow_down_circle
         iconSize: 50
         action: command
@@ -207,7 +283,7 @@ slots:
           position: absolute
           top: 15px
           left: 15px
-          width: "=props.set_temp_item ? 'calc(100% - 55px)' : '100%' "
+          width: "=props.set_temp_item ? 'calc(90% - 55px)' : '90%' "
           height: 120px
       slots:
         default:
@@ -229,16 +305,3 @@ slots:
                 top: 0px
                 left: 0px
                 z-index: 1
-
-
-
-
-
-"=Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0 ? items[props.function_item].state == 'HEATING' ? 'red' : 'white' : items[props.function_item].state == 'HEATING' ? 'white' : 'blue'"
-
-
-
-"=items[props.function_item].state == 'HEATING' ? (Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0) : (Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) > 0)"
-
-
-
