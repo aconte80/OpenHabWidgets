@@ -1,0 +1,161 @@
+uid: BTicinoEnergyMeter
+tags: []
+props:
+  parameters:
+    - description: Small title on top of the card
+      label: Title
+      name: title
+      required: false
+      type: TEXT
+    - description: Icon on top of the card (only OH icons (without oh:))
+      label: Icon
+      name: icon
+      required: false
+      type: TEXT
+    - context: item
+      description: First probe of energy meter (a.k.a Ta)
+      label: Probe 1
+      name: probe1
+      required: false
+      type: TEXT
+    - description: Description for first probe of energy meter
+      label: Probe 1 label
+      name: probe1_label
+      required: false
+      type: TEXT
+    - description: Max vaule for first probe of energy meter [W]
+      label: Probe 1 max value
+      name: probe1_max
+      required: false
+      type: TEXT
+    - context: item
+      description: Second probe of energy meter (a.k.a Tb)
+      label: Probe 2
+      name: probe2
+      required: false
+      type: TEXT
+    - description: Description for second probe of energy meter
+      label: Probe 2 label
+      name: probe2_label
+      required: false
+      type: TEXT
+    - description: Max vaule for second probe of energy meter [W]
+      label: Probe 2 max value
+      name: probe2_max
+      required: false
+      type: TEXT
+    - context: item
+      description: Third probe of energy meter (a.k.a Tc)
+      label: Probe 3
+      name: probe3
+      required: false
+      type: TEXT
+    - description: Description for third probe of energy meter
+      label: Probe 3 label
+      name: probe3_label
+      required: false
+      type: TEXT
+    - description: Max vaule for third probe of energy meter [W]
+      label: Probe 3 max value
+      name: probe3_max
+      required: false
+      type: TEXT
+  parameterGroups: []
+timestamp: Oct 7, 2021, 2:10:14 PM
+component: f7-card
+config:
+  style:
+    noShadow: false
+    padding: 0px
+    border-radius: var(--f7-card-expandable-border-radius)
+    box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.1)
+    height: 170px
+    margin-left: 5px
+    margin-right: 5px
+slots:
+  default:
+    - component: oh-icon
+      config:
+        icon: =props.icon
+        width: 40
+        style:
+          position: absolute
+          top: 3px
+          left: 5px
+        visible: "=props.icon ? true : false"
+    - component: Label
+      config:
+        text: "=props.title ? props.title : ''"
+        style:
+          position: absolute
+          top: 10px
+          left: "=props.icon ? '50px' : '10px'"
+          font-size: 18px
+    - component: f7-block
+      config:
+        style:
+          top: "=props.title ? '50px' : '30px'"
+        class:
+          - no-padding
+      slots:
+        default:
+          - component: f7-row
+            config:
+              class:
+                - no-gap
+            slots:
+              default:
+                - component: f7-col
+                  config:
+                    visible: "=props.probe1 ? true : false"
+                    style:
+                      text-align: center
+                      border-right: 2px solid var(--weather-font-color)
+                  slots:
+                    default:
+                      - component: f7-gauge
+                        config:
+                          type: semicircle
+                          value: =Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max)
+                          value-text: =items[props.probe1].state
+                          value-text-color: "=Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.5 ? 'green' : Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.75 ? 'yellow' : 'red'"
+                          label-text: =props.probe1_label
+                          label-text-color: "#fff"
+                          border-width: 16
+                          border-color: "=Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.5 ? 'green' : Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.75 ? 'yellow' : 'red'"
+                - component: f7-col
+                  config:
+                    visible: "=props.probe2 ? true : false"
+                    style:
+                      text-align: center
+                      border-right: 2px solid var(--weather-font-color)
+                  slots:
+                    default:
+                      - component: f7-gauge
+                        config:
+                          type: semicircle
+                          value: =Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max)
+                          value-text: =items[props.probe2].state
+                          value-text-color: "=Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.5 ? 'green' : Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.75 ? 'yellow' : 'red'"
+                          label-text: =props.probe2_label
+                          label-text-color: "#fff"
+                          border-width: 16
+                          border-color: "=Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.5 ? 'green' : Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.75 ? 'yellow' : 'red'"
+                - component: f7-col
+                  config:
+                    visible: "=props.probe3 ? true : false"
+                    style:
+                      text-align: center
+                      border-right: 2px solid var(--weather-font-color)
+                  slots:
+                    default:
+                      - component: f7-gauge
+                        config:
+                          type: semicircle
+                          value: =Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max)
+                          value-text: =items[props.probe3].state
+                          value-text-color: "=Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.5 ? 'green' : Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.75 ? 'yellow' : 'red'"
+                          label-text: =props.probe3_label
+                          label-text-color: "#fff"
+                          border-width: 16
+                          border-color: "=Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.5 ? 'green' : Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.75 ? 'yellow' : 'red'"
