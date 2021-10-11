@@ -1,0 +1,390 @@
+uid: weather
+tags: []
+props:
+  parameters:
+    - description: Location name
+      label: Location
+      name: location
+      required: true
+      type: TEXT
+    - description: Prefix for item names (e.g. OneCallAPIWeatherandForecast_)
+      label: Item prefix
+      name: itemPrefix
+      required: true
+      type: TEXT
+    - description: The number of days you want to forecast (<u>default:</u> <b>3</b> <u>max:</u> <b>7</b>)
+      label: Number of days to forecast
+      name: forecastDays
+      required: true
+      type: TEXT
+timestamp: Oct 11, 2021, 4:53:43 PM
+component: f7-card
+config:
+  title: =props.location
+  style:
+    background: rgba(42,48,78,1)
+    noShadow: false
+    padding: 0px
+    border-radius: var(--f7-card-expandable-border-radius)
+    box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.1)
+    margin-left: 5px
+    margin-right: 5px
+slots:
+  default:
+    - component: f7-block
+      config:
+        class:
+          - no-padding
+          - no-margin
+        style:
+          background: "='linear-gradient(to top, #413D8F, #c0d4f0)'"
+          background-size: cover
+          background-repeat: no-repeat
+          background-position: bottom left
+          padding: 30px 0 60px 0
+          margin-top: 0
+      slots:
+        default:
+          - component: f7-block
+            config:
+              class:
+                - no-padding
+                - no-margin
+              style:
+                border-top: 80px solid white
+                border-image-source: url('data:image/svg+xml,%3Csvg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"%3E%3Cg transform="matrix(1,0,0,0.198289,0,-19.1443)"%3E%3Cpath d="M2000,116C1713.19,117.226 1658.73,122.546 1360.08,153.634C1159.33,174.531 926.563,327.589 572.792,351.218C337.726,366.918 155.294,280.98 0,298.274L0,500L2000,500L2000,116Z" style="fill:rgba(42,48,78,1);" /%3E%3C/g%3E%3C/svg%3E')
+                -moz-border-image-source: url('data:image/svg+xml,%3Csvg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"%3E%3Cg transform="matrix(1,0,0,0.198289,0,-19.1443)"%3E%3Cpath d="M2000,116C1713.19,117.226 1658.73,122.546 1360.08,153.634C1159.33,174.531 926.563,327.589 572.792,351.218C337.726,366.918 155.294,280.98 0,298.274L0,500L2000,500L2000,116Z" style="fill:rgba(42,48,78,1""/%3E%3C/g%3E%3C/svg%3E')
+                -webkit-border-image-source: url('data:image/svg+xml,%3Csvg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"%3E%3Cg transform="matrix(1,0,0,0.198289,0,-19.1443)"%3E%3Cpath d="M2000,116C1713.19,117.226 1658.73,122.546 1360.08,153.634C1159.33,174.531 926.563,327.589 572.792,351.218C337.726,366.918 155.294,280.98 0,298.274L0,500L2000,500L2000,116Z" style="fill:rgba(42,48,78,1)"/%3E%3C/g%3E%3C/svg%3E')
+                -o-border-image-source: url('data:image/svg+xml,%3Csvg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"%3E%3Cg transform="matrix(1,0,0,0.198289,0,-19.1443)"%3E%3Cpath d="M2000,116C1713.19,117.226 1658.73,122.546 1360.08,153.634C1159.33,174.531 926.563,327.589 572.792,351.218C337.726,366.918 155.294,280.98 0,298.274L0,500L2000,500L2000,116Z" style="fill:rgba(42,48,78,1"/%3E%3C/g%3E%3C/svg%3E')
+                -webkit-appearance: none
+                border-image-slice: 100% 0 0 0
+                border-image-width: 1 0 0 0
+                width: 100%
+                position: absolute
+                left: 0
+                bottom: 0
+                height: 100%
+                max-height: 80px
+          - component: oh-trend
+            config:
+              trendItem: =props.item
+              trendGradient:
+                - "#aa2b1d"
+                - "#cc561e"
+                - "#ef8d32"
+                - "#beca5c"
+              style:
+                --f7-theme-color-bg-color: transparent
+                background: var(--f7-theme-color-bg-color)
+                filter: opacity(30%)
+                position: absolute
+                width: 100%
+                height: 100%
+                top: 0px
+                left: 0px
+                z-index: 1
+          - component: f7-row
+            config:
+              style:
+                height: 120px
+              class:
+                - no-gap
+            slots:
+              default:
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: =Number(items[props.itemPrefix + 'Current_Temperature'].state.split(' ')[0]).toFixed(1) + '°'
+                          style:
+                            font-size: 60px
+                      - component: oh-image
+                        config:
+                          item: =props.itemPrefix + 'Current_Icon'
+                          width: 100
+                          style:
+                            position: absolute
+                            left: 10px
+                            top: -20px
+                      - component: Label
+                        config:
+                          text: =items[props.itemPrefix + 'Current_Condition'].state
+                          style:
+                            position: absolute
+                            left: 10px
+                            top: 50px
+                            font-size: 20px
+                      - component: Label
+                        config:
+                          text: percepita
+                          style:
+                            position: absolute
+                            right: 10px
+                            top: 20px
+                            font-size: 15px
+                            color: var(--weather-transparent-font-color)
+                            white-space: nowrap
+                            overflow: hidden
+                            text-overflow: ellipsis
+                      - component: Label
+                        config:
+                          text: =Number(items[props.itemPrefix + 'Current_Apparenttemperature'].state.split(' ')[0]).toFixed(1) + '°'
+                          style:
+                            position: absolute
+                            right: 10px
+                            top: 40px
+                            font-size: 15px
+    - component: f7-block
+      config:
+        style:
+          top: -10px
+      slots:
+        default:
+          - component: f7-row
+            config:
+              class:
+                - no-gap
+            slots:
+              default:
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 100px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: Previsione
+                          style:
+                            margin-left: -7px
+                            font-size: 17px
+                            font-weight: 600
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 20px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                      width: 50px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: T min
+                          style:
+                            font-size: 17px
+                            font-weight: 600
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                      width: 50px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: T max
+                          style:
+                            font-size: 17px
+                            font-weight: 600
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                      width: 50px
+                  slots:
+                    default:
+                      - component: f7-icon
+                        config:
+                          f7: wind
+                          size: 20
+                          style:
+                            margin-top: -1px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 80px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 100px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: Precipitazioni
+                          style:
+                            font-size: 17px
+                            font-weight: 600
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                      width: 50px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: mm
+                          style:
+                            font-size: 17px
+                            font-weight: 600
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                      width: 50px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: UV
+                          style:
+                            font-size: 17px
+                            font-weight: 600
+    - component: oh-repeater
+      config:
+        sourceType: range
+        for: days
+        rangeStart: 0
+        rangeStop: "=!props.forecastDays ? 2 : Number(props.forecastDays) -1"
+      slots:
+        default:
+          - component: f7-row
+            config:
+              class:
+                - no-gap
+            slots:
+              default:
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 110px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: =dayjs().add(loop.days,'days').format('dddd DD')
+                          style:
+                            font-size: 17px
+                            margin-left: 10px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 20px
+                  slots:
+                    default:
+                      - component: oh-image
+                        config:
+                          item: "=props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Icon'"
+                          width: 34
+                          style:
+                            margin-top: -5px
+                            margin-left: -5px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                      width: 50px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Mintemperature'].state.split(' ')[0]).toFixed(1) + '°'"
+                          style:
+                            font-size: 17px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                      width: 50px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Maxtemperature'].state.split(' ')[0]).toFixed(1) + '°'"
+                          style:
+                            font-size: 17px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 30px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: "=items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Winddirection'].state.split(' ')[0]"
+                          style:
+                            font-size: 17px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 80px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Windspeed'].state.split(' ')[0]).toFixed(0) + ' km/h'"
+                          style:
+                            font-size: 17px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: center
+                      width: 100px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          style:
+                            position: absolute
+                            width: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Precipprobability'].state.split(' ')[0]).toFixed(0) + 'px'"
+                            min-width: 0px
+                            height: 25px
+                            margin-top: 0px
+                            opacity: 0.3
+                            background-color: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Precipprobability'].state.split(' ')[0]).toFixed(0) < 30 ? 'green' : Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Precipprobability'].state.split(' ')[0]).toFixed(0) < 50 ? 'orange' : 'red'"
+                      - component: Label
+                        config:
+                          text: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Precipprobability'].state.split(' ')[0]).toFixed(0) + '%'"
+                          style:
+                            font-size: 17px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 50px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Rain'].state.split(' ')[0]).toFixed(1)"
+                          style:
+                            font-size: 17px
+                - component: f7-col
+                  config:
+                    style:
+                      text-align: left
+                      width: 50px
+                  slots:
+                    default:
+                      - component: Label
+                        config:
+                          text: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Uvindex'].state.split(' ')[0]).toFixed(1)"
+                          style:
+                            color: "=Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Uvindex'].state.split(' ')[0]).toFixed(1) < 3 ? 'white' : Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Uvindex'].state.split(' ')[0]).toFixed(1) < 6 ? 'yellow' : Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Uvindex'].state.split(' ')[0]).toFixed(1) < 8 ? 'orange' : Number(items[props.itemPrefix + (loop.days == 0 ? 'ForecastToday' : (loop.days == 1 ? 'ForecastTomorrow' : 'ForecastDay' + loop.days_idx)) + '_Uvindex'].state.split(' ')[0]).toFixed(1) < 11 ? 'red' : ' purple'"
+                            font-size: 17px
