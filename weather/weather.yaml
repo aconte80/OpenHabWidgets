@@ -36,7 +36,7 @@ props:
     - name: wording
       label: Language settings
       description: Set alternative wordings
-timestamp: Oct 12, 2021, 5:50:47 PM
+timestamp: Oct 13, 2021, 8:31:24 AM
 component: f7-card
 config:
   title: =props.location
@@ -354,7 +354,7 @@ slots:
                   config:
                     style:
                       text-align: left
-                      width: 50px
+                      width: 40px
                   slots:
                     default:
                       - component: Label
@@ -366,7 +366,7 @@ slots:
                   config:
                     style:
                       text-align: left
-                      width: 60px
+                      width: 70px
                   slots:
                     default:
                       - component: Label
