@@ -46,7 +46,7 @@ props:
       required: false
       type: TEXT
   parameterGroups: []
-timestamp: Jan 16, 2022, 9:41:58 AM
+timestamp: Jan 22, 2023, 6:19:49 PM
 component: f7-card
 config:
   style:
@@ -87,9 +87,9 @@ slots:
       config:
         color: "=items[props.function_item].state == 'HEATING' ? 'red' : 'blue' "
         f7: "=items[props.function_item].state == 'HEATING' ? 'flame' : 'snow' "
-        size: 50
+        size: 40
         style:
-          left: 40px
+          left: 30px
           position: absolute
           top: 45px
         visible: "=items[props.function_item].state == 'HEATING' ? (Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) < 0) : (Number(items[props.temp_item].state.split(' ')[0]) - Number(items[props.set_temp_item].state.split(' ')[0]) > 0)"
@@ -107,10 +107,10 @@ slots:
             config:
               style:
                 color: white
-                font-size: 60px
+                font-size: 45px
                 font-weight: 400
-                margin-left: 0px
-                margin-top: 0px
+                margin-left: 40px
+                margin-top: 10px
               text: =items[props.temp_item].state
     - component: f7-block
       config:
@@ -146,12 +146,6 @@ slots:
         visible: "=props.fanspeed_item ? true : false"
       slots:
         default:
-          - component: f7-icon
-            config:
-              f7: chart_bar
-              size: 25
-              style:
-                top: 3px
           - component: oh-button
             config:
               action: command
@@ -271,10 +265,10 @@ slots:
     - component: Label
       config:
         style:
-          font-size: 25px
+          font-size: 20px
           position: absolute
           right: 20px
-          top: 58px
+          top: 60px
         text: =items[props.set_temp_item].state
         visible: "=props.set_temp_item ? true : false"
     - component: f7-block
