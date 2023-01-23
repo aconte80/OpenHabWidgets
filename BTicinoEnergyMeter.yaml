@@ -61,7 +61,7 @@ props:
       required: false
       type: TEXT
   parameterGroups: []
-timestamp: Oct 7, 2021, 2:10:14 PM
+timestamp: Jan 23, 2023, 9:05:01 AM
 component: f7-card
 config:
   style:
@@ -69,7 +69,7 @@ config:
     padding: 0px
     border-radius: var(--f7-card-expandable-border-radius)
     box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.1)
-    height: 170px
+    height: 350px
     margin-left: 5px
     margin-right: 5px
 slots:
@@ -101,6 +101,8 @@ slots:
         default:
           - component: f7-row
             config:
+              style:
+                height: 200px
               class:
                 - no-gap
             slots:
@@ -113,16 +115,43 @@ slots:
                       border-right: 2px solid var(--weather-font-color)
                   slots:
                     default:
-                      - component: f7-gauge
+                      - component: f7-block
                         config:
-                          type: semicircle
-                          value: =Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max)
-                          value-text: =items[props.probe1].state
-                          value-text-color: "=Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.5 ? 'green' : Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.75 ? 'yellow' : 'red'"
-                          label-text: =props.probe1_label
-                          label-text-color: "#fff"
-                          border-width: 16
-                          border-color: "=Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.5 ? 'green' : Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.75 ? 'yellow' : 'red'"
+                          style:
+                            display: flex
+                        slots:
+                          default:
+                            - component: f7-gauge
+                              config:
+                                type: semicircle
+                                size: 350
+                                value: =Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max)
+                                value-text: =items[props.probe1].state
+                                value-text-color: "=Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.5 ? 'green' : Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.75 ? 'yellow' : 'red'"
+                                value-font-size: 40
+                                value-font-weight: 700
+                                label-text: =props.probe1_label
+                                label-font-size: 30
+                                label-text-color: "#fff"
+                                border-width: 40
+                                border-color: "=Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.5 ? 'green' : Number(items[props.probe1].state.split(' ')[0]) / Number(props.probe1_max) <0.75 ? 'yellow' : 'red'"
+                            - component: oh-trend
+                              config:
+                                style:
+                                  background: var(--f7-theme-color-bg-color)
+                                  filter: opacity(40%)
+                                  height: 100%
+                                  left: 90px
+                                  position: absolute
+                                  top: 20px
+                                  width: 50%
+                                  z-index: 1
+                                trendGradient:
+                                  - "#aa2b1d"
+                                  - "#cc561e"
+                                  - "#ef8d32"
+                                  - "#beca5c"
+                                trendItem: =props.probe1
                 - component: f7-col
                   config:
                     visible: "=props.probe2 ? true : false"
@@ -131,16 +160,43 @@ slots:
                       border-right: 2px solid var(--weather-font-color)
                   slots:
                     default:
-                      - component: f7-gauge
+                      - component: f7-block
                         config:
-                          type: semicircle
-                          value: =Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max)
-                          value-text: =items[props.probe2].state
-                          value-text-color: "=Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.5 ? 'green' : Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.75 ? 'yellow' : 'red'"
-                          label-text: =props.probe2_label
-                          label-text-color: "#fff"
-                          border-width: 16
-                          border-color: "=Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.5 ? 'green' : Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.75 ? 'yellow' : 'red'"
+                          style:
+                            display: flex
+                        slots:
+                          default:
+                            - component: f7-gauge
+                              config:
+                                type: semicircle
+                                size: 350
+                                value: =Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max)
+                                value-text: =items[props.probe2].state
+                                value-text-color: "=Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.5 ? 'green' : Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.75 ? 'yellow' : 'red'"
+                                label-text: =props.probe2_label
+                                value-font-size: 40
+                                value-font-weight: 700
+                                label-font-size: 40
+                                label-text-color: "#fff"
+                                border-width: 30
+                                border-color: "=Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.5 ? 'green' : Number(items[props.probe2].state.split(' ')[0]) / Number(props.probe2_max) <0.75 ? 'yellow' : 'red'"
+                            - component: oh-trend
+                              config:
+                                style:
+                                  background: var(--f7-theme-color-bg-color)
+                                  filter: opacity(40%)
+                                  height: 100%
+                                  left: 90px
+                                  position: absolute
+                                  top: 20px
+                                  width: 50%
+                                  z-index: 1
+                                trendGradient:
+                                  - "#aa2b1d"
+                                  - "#cc561e"
+                                  - "#ef8d32"
+                                  - "#beca5c"
+                                trendItem: =props.probe2
                 - component: f7-col
                   config:
                     visible: "=props.probe3 ? true : false"
@@ -149,13 +205,40 @@ slots:
                       border-right: 2px solid var(--weather-font-color)
                   slots:
                     default:
-                      - component: f7-gauge
+                      - component: f7-block
                         config:
-                          type: semicircle
-                          value: =Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max)
-                          value-text: =items[props.probe3].state
-                          value-text-color: "=Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.5 ? 'green' : Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.75 ? 'yellow' : 'red'"
-                          label-text: =props.probe3_label
-                          label-text-color: "#fff"
-                          border-width: 16
-                          border-color: "=Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.5 ? 'green' : Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.75 ? 'yellow' : 'red'"
+                          style:
+                            display: flex
+                        slots:
+                          default:
+                            - component: f7-gauge
+                              config:
+                                type: semicircle
+                                size: 350
+                                value: =Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max)
+                                value-text: =items[props.probe3].state
+                                value-text-color: "=Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.5 ? 'green' : Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.75 ? 'yellow' : 'red'"
+                                label-text: =props.probe3_label
+                                value-font-size: 40
+                                value-font-weight: 700
+                                label-font-size: 30
+                                label-text-color: "#fff"
+                                border-width: 40
+                                border-color: "=Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.5 ? 'green' : Number(items[props.probe3].state.split(' ')[0]) / Number(props.probe3_max) <0.75 ? 'yellow' : 'red'"
+                            - component: oh-trend
+                              config:
+                                style:
+                                  background: var(--f7-theme-color-bg-color)
+                                  filter: opacity(40%)
+                                  height: 100%
+                                  left: 90px
+                                  position: absolute
+                                  top: 20px
+                                  width: 50%
+                                  z-index: 1
+                                trendGradient:
+                                  - "#aa2b1d"
+                                  - "#cc561e"
+                                  - "#ef8d32"
+                                  - "#beca5c"
+                                trendItem: =props.probe3
